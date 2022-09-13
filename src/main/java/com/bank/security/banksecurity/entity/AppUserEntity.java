@@ -26,6 +26,7 @@ public class AppUserEntity {
     @Column(length = 250, nullable = false)
     private String address;
     private String email;
+    private String username;
     private String password;
     @ManyToMany
     @JoinTable(

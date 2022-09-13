@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("users")
 @AllArgsConstructor
 public class UserController {
 
@@ -22,7 +22,7 @@ public class UserController {
         return userService.getUsers(pageable);
     }
 
-    @GetMapping("{/id}")
+    @GetMapping("{id}")
     public User getUser(@PathVariable("id") Long id) {
         return userService.getUser(id);
     }
@@ -34,13 +34,13 @@ public class UserController {
         return userService.createUser(user);
     }
 
-    @PutMapping("{/id}")
+    @PutMapping("{id}")
     //@IsAdmin
     public User updateUser(@PathVariable("id") Long id, @Valid @RequestBody User user) {
         return userService.updateUser(id, user);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("{id}")
     public void deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
     }

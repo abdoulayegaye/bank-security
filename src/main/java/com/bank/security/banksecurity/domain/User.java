@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -28,5 +29,8 @@ public class User implements Serializable {
     @NotNull
     private String email;
     @NotNull
+    private String username;
+    @NotNull
     private String password;
+    private List<Role> roles;
 }
