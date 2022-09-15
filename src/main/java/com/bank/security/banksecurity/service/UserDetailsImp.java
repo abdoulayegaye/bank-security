@@ -2,6 +2,7 @@ package com.bank.security.banksecurity.service;
 
 import com.bank.security.banksecurity.domain.Role;
 import com.bank.security.banksecurity.domain.User;
+import com.bank.security.banksecurity.mapping.UserMapper;
 import com.bank.security.banksecurity.repository.RolesRepository;
 import com.bank.security.banksecurity.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,22 +20,21 @@ import java.util.List;
 public class UserDetailsImp implements UserDetailsService {
     final UserRepository userRepository;
     final RolesRepository rolesRepository;
+    UserMapper userMapper;
     UserDetailsImp(RolesRepository rolesRepository, UserRepository userRepository){
         this.rolesRepository = rolesRepository;
         this.userRepository = userRepository;
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User u = this.userRepository.findByUsername(username);
+        User u = userMapper.toUser(this.userRepository.findByUsername(username));
         System.out.println("USER DETAIL"+ u.getUsername());
         return new org.springframework.security.core.userdetails.User(u.getUsername(),u.getPassword(),
                 true,true,true,true,getAuthorities(u.getRoles()));
 
     }
-    private Collection<? extends GrantedAuthority> getAuthorities(
-            Collection<Role> roles) {
-        List<GrantedAuthority> authorities
-                = new ArrayList<>();
+    private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role: roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }

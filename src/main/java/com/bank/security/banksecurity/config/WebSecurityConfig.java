@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
-    WebSecurityConfig(JwtAuthenticationEntryPoint unauthorizedHandler,UserDetailsService userDetailsService,JwtAuthenticationFilter jwtAuthenticationFilter){
+    WebSecurityConfig(JwtAuthenticationEntryPoint unauthorizedHandler, UserDetailsService userDetailsService, JwtAuthenticationFilter jwtAuthenticationFilter){
         this.unauthorizedHandler=unauthorizedHandler;
         this.userDetailsService=userDetailsService;
         this.jwtAuthenticationFilter=jwtAuthenticationFilter;
@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        System.out.println(encoder().encode("passer123"));
+        System.out.println("Password : " + encoder().encode("passer"));
         http.cors().and().csrf().disable().
                 authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
@@ -61,7 +61,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 
     @Bean
     public BCryptPasswordEncoder encoder(){
-
         return new BCryptPasswordEncoder();
     }
 }

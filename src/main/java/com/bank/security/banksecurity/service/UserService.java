@@ -39,7 +39,7 @@ public class UserService {
 
     @Transactional
     public User createUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        //user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userMapper.toUser(userRepository.save(userMapper.fromUser(user)));
     }
 

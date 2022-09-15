@@ -20,7 +20,7 @@ public class ApiResponse<T> {
         this.data = data;
     }
 
-    public ApiResponse(int status, String message, Object result,Object data) {
+    public ApiResponse(int status, String message, Object result, Object data) {
         this.status = status;
         this.message = message;
         this.data = result;

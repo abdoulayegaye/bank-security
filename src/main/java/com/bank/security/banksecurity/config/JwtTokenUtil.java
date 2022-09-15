@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.function.Function;
 
 import com.bank.security.banksecurity.domain.User;
+import com.bank.security.banksecurity.mapping.UserMapper;
 import com.bank.security.banksecurity.repository.RolesRepository;
 import com.bank.security.banksecurity.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +25,7 @@ public class JwtTokenUtil implements Serializable {
     final UserRepository userRepository;
     final RolesRepository rolesRepository;
     final UserDetailsService userDetailsService;
+    private UserMapper userMapper;
     JwtTokenUtil(RolesRepository role, UserRepository user, UserDetailsService userDetailsService){
         this.rolesRepository = role;
         this.userRepository = user;
@@ -34,10 +36,10 @@ public class JwtTokenUtil implements Serializable {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    public User getUserAthenticate(HttpServletRequest req) {
+    public User getUserAuthenticate(HttpServletRequest req) {
         String token = getToken(req);
         String username = getUsernameFromToken(token);
-        return userRepository.findByUsername(username);
+        return userMapper.toUser(userRepository.findByUsername(username));
     }
     public String getToken(HttpServletRequest req) {
         String token = req.getHeader(HEADER_STRING) ;
@@ -86,9 +88,7 @@ public class JwtTokenUtil implements Serializable {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
-        return (
-                username.equals(userDetails.getUsername())
-                        && !isTokenExpired(token));
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
 }
