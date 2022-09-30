@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable {
+public class AppUser implements Serializable {
     Long id;
     @NotNull(message = "Firstname is not null")
     private String firstName;

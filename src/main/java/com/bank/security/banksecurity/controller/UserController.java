@@ -1,6 +1,6 @@
 package com.bank.security.banksecurity.controller;
 
-import com.bank.security.banksecurity.domain.User;
+import com.bank.security.banksecurity.domain.AppUser;
 import com.bank.security.banksecurity.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,26 +18,26 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public Page<User> getUsers(Pageable pageable) {
+    public Page<AppUser> getUsers(Pageable pageable) {
         return userService.getUsers(pageable);
     }
 
     @GetMapping("{id}")
-    public User getUser(@PathVariable("id") Long id) {
+    public AppUser getUser(@PathVariable("id") Long id) {
         return userService.getUser(id);
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     //@IsAdmin
-    public User createUser(@Valid @RequestBody User user) {
-        return userService.createUser(user);
+    public AppUser createUser(@Valid @RequestBody AppUser appUser) {
+        return userService.createUser(appUser);
     }
 
     @PutMapping("{id}")
     //@IsAdmin
-    public User updateUser(@PathVariable("id") Long id, @Valid @RequestBody User user) {
-        return userService.updateUser(id, user);
+    public AppUser updateUser(@PathVariable("id") Long id, @Valid @RequestBody AppUser appUser) {
+        return userService.updateUser(id, appUser);
     }
 
     @DeleteMapping("{id}")
