@@ -3,9 +3,6 @@ package com.bank.security.banksecurity.security.filters;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.sid.sercurityservice.security.util.JwtUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,11 +19,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
-
 
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -58,7 +50,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         User user = (User)authResult.getPrincipal();
 
         //On genere le JWT
-        Algorithm algorithm = Algorithm.HMAC256(JwtUtils.SECRET);//("mySecret1234"); //cle privee pour la crypto pour le header du token
+        Algorithm algorithm = Algorithm.HMAC256("mySecret");//("mySecret1234"); //cle privee pour la crypto pour le header du token
         String jwtAccessToken = JWT.create()//pour le payload
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 1*60*1000))//en milisecond dans 1mn

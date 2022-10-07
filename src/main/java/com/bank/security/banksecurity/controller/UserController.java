@@ -6,23 +6,25 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 @AllArgsConstructor
 public class UserController {
 
     UserService userService;
 
     @GetMapping
+    //@PostAuthorize("hasAuthority('USER')")
     public Page<AppUser> getUsers(Pageable pageable) {
         return userService.getUsers(pageable);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public AppUser getUser(@PathVariable("id") Long id) {
         return userService.getUser(id);
     }
@@ -34,13 +36,13 @@ public class UserController {
         return userService.createUser(appUser);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     //@IsAdmin
     public AppUser updateUser(@PathVariable("id") Long id, @Valid @RequestBody AppUser appUser) {
         return userService.updateUser(id, appUser);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
     }

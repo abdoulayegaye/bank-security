@@ -1,8 +1,8 @@
-package org.sid.sercurityservice.security.util;
+package com.bank.security.banksecurity.security.util;
 
 public class JwtUtils {
 
-    public static final String SECRET = "mySecret1234";
+    public static final String SECRET = "mySecret";
     public static final String AUTH_HEADER = "Authorization";
     public static final String PREFIX = "Bearer ";
     public static final long EXPIRE_ACCESS_TOKEN = 2*60*100; //chaque 2 minutes
