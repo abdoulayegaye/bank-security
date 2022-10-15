@@ -53,7 +53,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         Algorithm algorithm = Algorithm.HMAC256("mySecret");//("mySecret1234"); //cle privee pour la crypto pour le header du token
         String jwtAccessToken = JWT.create()//pour le payload
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1*60*1000))//en milisecond dans 1mn
+                .withExpiresAt(new Date(System.currentTimeMillis() + 15*60*1000))//en milisecond dans 15mn
                 .withIssuer(request.getRequestURI().toString())//Nom de l'application qui a genere le tocken
                 .withClaim("roles", user.getAuthorities().stream().map(ga->ga.getAuthority()).collect(Collectors.toList()))//les roles
                 .sign(algorithm);//signature du token

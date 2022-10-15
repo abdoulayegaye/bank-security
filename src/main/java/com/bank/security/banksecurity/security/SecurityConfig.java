@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll();//pour angular
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/users").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/users").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/users/**").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
 
         //Gestion des filters
